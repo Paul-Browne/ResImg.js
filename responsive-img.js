@@ -46,7 +46,7 @@
 		for (var i = 0; i < images.length; i++) {
 
 				var image = images[i],
-				    imageport = image.parentNode.innerWidth;
+				    imageport = image.parentNode.offsetWidth;
 
 
 				//set attr names
