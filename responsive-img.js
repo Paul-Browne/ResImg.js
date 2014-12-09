@@ -8,7 +8,9 @@
 
 	function makeImagesResponsive(){
 
-			var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			//var viewport = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			
+			
 
 		////////GET ALL IMAGES////////
 
@@ -16,6 +18,7 @@
 		if( images.length === 0 ){
 			return;
 		}
+		
 
 		////////HASATTR FUNCTION////////
 
@@ -42,7 +45,8 @@
 
 		for (var i = 0; i < images.length; i++) {
 
-				var image = images[i];
+				var image = images[i],
+				    imageport = image.parentNode.innerWidth;
 
 
 				//set attr names
@@ -96,11 +100,11 @@
 							var prev_query = queries_array[(j - 1)].split(/:(.+)/);
 							var prev_cond = prev_query[0].split('<');
 
-							bool =  (viewport <= conditionpx[1] && viewport > prev_cond[1]);
+							bool =  (imageport <= conditionpx[1] && imageport > prev_cond[1]);
 
 						} else {
 
-							bool =  (viewport <= conditionpx[1]);
+							bool =  (imageport <= conditionpx[1]);
 
 						}
 
@@ -113,11 +117,11 @@
 							var next_query = queries_array[(j +1)].split(/:(.+)/);
 							var next_cond = next_query[0].split('>');
 							
-							bool = (viewport >= conditionpx[1] && viewport < next_cond[1]);
+							bool = (imageport >= conditionpx[1] && imageport < next_cond[1]);
 
 						} else {
 
-							bool = (viewport >= conditionpx[1]);
+							bool = (imageport >= conditionpx[1]);
 
 						}
 
