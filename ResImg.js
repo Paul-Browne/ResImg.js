@@ -19,7 +19,6 @@ function ResImg() {
         for (var c = window.devicePixelRatio ? window.devicePixelRatio : 1, d = 0; d < a.length; d++) {
             var e = a[d],
                 f = c * e.parentNode.offsetWidth;
-            console.log(f);
             var g = "data-src",
                 h = "data-src-base";
             if (b(e, g))
