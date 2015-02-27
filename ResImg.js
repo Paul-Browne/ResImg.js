@@ -18,8 +18,8 @@ function ResImg() {
         };
         for (var c = window.devicePixelRatio ? window.devicePixelRatio : 1, d = 0; d < a.length; d++) {
             var e = a[d],
-                f = c * e.parentNode.offsetWidth;
-            var g = "data-src",
+                f = c * e.parentNode.offsetWidth,
+                g = "data-src",
                 h = "data-src-base";
             if (b(e, g))
                 for (var i = b(e, h) ? e.getAttribute(h) : "", j = e.getAttribute(g), k = j.split(","), l = 0; l < k.length; l++) {
