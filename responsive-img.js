@@ -1,84 +1,50 @@
 /*
-// @name: Responsive-img.js
-// @version: 1.1
+// @name: ResImg.js
+// @version: 1.1x
 // 
 // Copyright 2013-2014 Koen Vendrik, http://kvendrik.com
 // Licensed under the MIT license
 //
-// Container responsive - Paul Browne, http://paulbrowne.fi
+// Changes - Paul Browne, http://paulbrowne.fi
 */
-function makeImagesResponsive(){
-	var images = document.getElementsByTagName('body')[0].getElementsByTagName('img');
-	if( images.length === 0 ){
-		return;
-	}
-	var hasAttr;
-	if(!images[0].hasAttribute){
-		hasAttr = function(el, attrName){
-			return el.getAttribute(attrName) !== null;
-		};
-	} else {
-		hasAttr = function(el, attrName){
-			return el.hasAttribute(attrName);
-		};
-	}
-	var retina = window.devicePixelRatio ? window.devicePixelRatio >= 1.2 ? 1 : 0 : 0;
-	for (var i = 0; i < images.length; i++) {
-		var image = images[i],
-		    imageport = image.parentNode.offsetWidth;
-		var srcAttr = ( retina && hasAttr(image, 'data-src2x') ) ? 'data-src2x' : 'data-src';
-		var baseAttr = ( retina && hasAttr(image, 'data-src-base2x') ) ? 'data-src-base2x' : 'data-src-base';
-		if( !hasAttr(image, srcAttr) ){
-			continue;
-		}
-		var basePath = hasAttr(image, baseAttr) ? image.getAttribute(baseAttr) : '';
-		var queries = image.getAttribute(srcAttr);
-			var queries_array = queries.split(',');
-		for(var j = 0; j < queries_array.length; j++){
-			var query = queries_array[j].replace(':','||').split('||');
-			var condition = query[0];
-			var response = query[1];
-			var conditionpx;
-			var bool;
-			if(condition.indexOf('<') !== -1){
-				conditionpx = condition.split('<');
-				if(queries_array[(j -1)]){
-					var prev_query = queries_array[(j - 1)].split(/:(.+)/);
-					var prev_cond = prev_query[0].split('<');
-					bool =  (imageport <= conditionpx[1] && imageport > prev_cond[1]);
-				} else {
-					bool =  (imageport <= conditionpx[1]);
-				}
-			} else {
-				conditionpx = condition.split('>');
-				if(queries_array[(j +1)]){
-					var next_query = queries_array[(j +1)].split(/:(.+)/);
-					var next_cond = next_query[0].split('>');
-					bool = (imageport >= conditionpx[1] && imageport < next_cond[1]);
-				} else {
-					bool = (imageport >= conditionpx[1]);
-				}
-			}
-			if(bool){
-				var isCrossDomain = response.indexOf('//') !== -1 ? 1 : 0;
-				var new_source;
-				if(isCrossDomain === 1){
-					new_source = response;
-				} else {
-					new_source = basePath + response;
-				}
-				if(image.src !== new_source){
-					image.setAttribute('src', new_source);
-				}
-				break;
-			}
-		}
-	}
+function ResImg() {
+    var a = document.getElementsByTagName("body")[0].getElementsByTagName("img");
+    if (0 !== a.length) {
+        var b;
+        b = a[0].hasAttribute ? function(a, b) {
+            return a.hasAttribute(b)
+        } : function(a, b) {
+            return null !== a.getAttribute(b)
+        };
+        for (var c = window.devicePixelRatio ? window.devicePixelRatio : 1, d = 0; d < a.length; d++) {
+            var e = a[d],
+                f = c * e.parentNode.offsetWidth;
+            console.log(f);
+            var g = "data-src",
+                h = "data-src-base";
+            if (b(e, g))
+                for (var i = b(e, h) ? e.getAttribute(h) : "", j = e.getAttribute(g), k = j.split(","), l = 0; l < k.length; l++) {
+                    var p, q, m = k[l].replace(":", "||").split("||"),
+                        n = m[0],
+                        o = m[1];
+                    if (-1 !== n.indexOf("<"))
+                        if (p = n.split("<"), k[l - 1]) {
+                            var r = k[l - 1].split(/:(.+)/),
+                                s = r[0].split("<");
+                            q = f <= p[1] && f > s[1]
+                        } else q = f <= p[1];
+                    else if (p = n.split(">"), k[l + 1]) {
+                        var t = k[l + 1].split(/:(.+)/),
+                            u = t[0].split(">");
+                        q = f >= p[1] && f < u[1]
+                    } else q = f >= p[1];
+                    if (q) {
+                        var w, v = -1 !== o.indexOf("//") ? 1 : 0;
+                        w = 1 === v ? o : i + o, e.src !== w && e.setAttribute("src", w);
+                        break
+                    }
+                }
+        }
+    }
 }
-if(window.addEventListener){
-	window.addEventListener('load', makeImagesResponsive, false);
-	window.addEventListener('resize', makeImagesResponsive, false);
-} else {
-	window.attachEvent('onload', makeImagesResponsive);
-	window.attachEvent('onresize', makeImagesResponsive);
-}
+window.addEventListener("load", ResImg), window.addEventListener("resize", ResImg);
