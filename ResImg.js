@@ -10,11 +10,8 @@
 function ResImg() {
     var a = document.getElementsByTagName("body")[0].getElementsByTagName("img");
     if (0 !== a.length) {
-        var b;
-        b = a[0].hasAttribute ? function(a, b) {
+        var b = function(a, b) {
             return a.hasAttribute(b)
-        } : function(a, b) {
-            return null !== a.getAttribute(b)
         };
         for (var c = window.devicePixelRatio ? window.devicePixelRatio : 1, d = 0; d < a.length; d++) {
             var e = a[d],
