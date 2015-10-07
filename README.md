@@ -1,7 +1,7 @@
 
 This is just a fork [of this repo](https://github.com/kvendrik/responsive-images.js) with two differences.
 
-1. This script uses the width of the parent's container rather than the screen's width
+1. This script uses the width of the image's container rather than the screen's width
 2. This script automatically takes device pixel ratio into account and swaps images accordinally
 
 Use like so...
