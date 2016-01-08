@@ -1,12 +1,4 @@
-/*
-// @name: ResImg.js
-// @version: 1.1x
-// 
-// Copyright 2013-2014 Koen Vendrik, http://kvendrik.com
-// Licensed under the MIT license
-//
-// Changes - Paul Browne, http://paulbrowne.fi
-*/
+
 function ResImg() {
     var a = document.getElementsByTagName("body")[0].getElementsByTagName("img");
     if (0 !== a.length) {
